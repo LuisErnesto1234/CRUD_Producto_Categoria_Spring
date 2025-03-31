@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Producto Fomulario</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+<body>
+
+<div class="bg-white border rounded-lg px-8 py-6 mx-auto my-8 max-w-2xl">
+    <h2 class="text-2xl font-medium mb-4 text-center">Formulario Productos</h2>
+    <form action="/app/producto/guardar" method="post" th:object="${producto}" enctype="multipart/form-data">
+        <div class="mb-4">
+            <label for="nombre" class="block text-gray-700 font-medium mb-2">Nombre</label>
+            <input type="text" name="nombre" id="nombre" th:field="*{nombre}"
+                   class="border border-gray-400 p-2 w-full rounded-lg focus:outline-none focus:border-blue-400" required>
+        </div>
+        <div class="mb-4">
+            <div class="-mx-3 flex flex-wrap">
+                <div class="w-full px-3 sm:w-1/2">
+                    <div class="mb-5">
+                        <label for="categoria" class="mb-3 block text-base font-medium text-[#07074D]">
+                            Categoria
+                        </label>
+                        <select name="categoria" id="categoria" th:field="*{categoria}"
+                                class="border border-gray-400 p-2 w-full rounded-lg focus:outline-none focus:border-blue-400" required>
+                            <option value="">Seleccionar Categoria</option>
+                            <option th:each="categoria : ${categorias}"
+                                    th:value="${categoria.id}"
+                                    th:text="${categoria.nombre}">
+                            </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="w-full px-3 sm:w-1/2">
+                    <div class="mb-5">
+                        <label for="precio" class="mb-3 block text-base font-medium text-[#07074D]">
+                            Precio Unitario
+                        </label>
+                        <input type="number" name="precio" id="precio" th:field="*{precio}" step="0.0"
+                               class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="mb-4">
+            <label for="message" class="block text-gray-700 font-medium mb-2">Descripción</label>
+            <textarea id="message" name="descripcion" th:field="*{descripcion}"
+                      class="border border-gray-400 p-2 w-full rounded-lg focus:outline-none focus:border-blue-400" rows="5"></textarea>
+        </div>
+        <div class="mb-4">
+            <label for="imagen" class="block text-gray-700 font-medium mb-2">Imagen</label>
+            <div class="items-center justify-center max-w-xl mx-auto">
+                <label class="flex justify-center w-full h-32 px-4 transition bg-white border-2 border-gray-300 border-dashed rounded-md appearance-none cursor-pointer hover:border-gray-400 focus:outline-none" id="drop">
+                    <span class="flex items-center space-x-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
+                        </svg>
+                        <span class="font-medium text-gray-600">Arrastra imagen, o<span class="text-blue-600 underline ml-[4px]">abrir explorador</span></span></span>
+                    <input type="file" name="imagen" class="hidden" accept="image/png,image/jpeg" id="imagen">
+                </label>
+            </div>
+        </div>
+        <div>
+            <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">Guardar</button>
+        </div>
+    </form>
+</div>
+
+</body>
+</html>
